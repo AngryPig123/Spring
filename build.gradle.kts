@@ -28,6 +28,7 @@ dependencies {
 	implementation("com.mysql:mysql-connector-j:8.0.33")
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	testImplementation("org.projectlombok:lombok")
 	compileOnly("org.projectlombok:lombok")
 	annotationProcessor("org.projectlombok:lombok")
 
