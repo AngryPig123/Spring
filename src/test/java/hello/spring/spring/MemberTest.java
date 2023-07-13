@@ -1,8 +1,8 @@
 package hello.spring.spring;
 
+import hello.spring.spring.basic.AppConfig;
 import hello.spring.spring.basic.member.Member;
 import hello.spring.spring.basic.member.MemberService;
-import hello.spring.spring.basic.member.MemberServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.*;
 
@@ -14,12 +14,14 @@ import static hello.spring.spring.basic.DefaultSetting.initMemberInfo;
 @TestMethodOrder(MethodOrderer.Random.class)
 public class MemberTest {
 
-    private final MemberService memberService = new MemberServiceImpl();
+    private MemberService memberService;
 
     private Member member;
 
     @BeforeEach
     void before() {
+        AppConfig appConfig = new AppConfig();
+        memberService = appConfig.memberService();
         int randomMember = new Random().nextInt(5);
         member = initMemberInfo.get(randomMember);
     }

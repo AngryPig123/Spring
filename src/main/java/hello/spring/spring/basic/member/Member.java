@@ -1,7 +1,10 @@
 package hello.spring.spring.basic.member;
 
 
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.util.Objects;
 
@@ -25,12 +28,11 @@ public class Member {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Member member = (Member) o;
-        return Objects.equals(getName(), member.getName()) && getGrade() == member.getGrade();
+        return Objects.equals(getId(), member.getId()) && Objects.equals(getName(), member.getName()) && getGrade() == member.getGrade();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getName(), getGrade());
+        return Objects.hash(getId(), getName(), getGrade());
     }
-
 }

@@ -31,11 +31,11 @@ public class Orders {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Orders orders = (Orders) o;
-        return getItemPrice() == orders.getItemPrice() && getDiscountPrice() == orders.getDiscountPrice() && Objects.equals(getMemberId(), orders.getMemberId()) && Objects.equals(getItemName(), orders.getItemName());
+        return getItemPrice() == orders.getItemPrice() && getDiscountPrice() == orders.getDiscountPrice() && getTotalPrice() == orders.getTotalPrice() && Objects.equals(getId(), orders.getId()) && Objects.equals(getMemberId(), orders.getMemberId()) && Objects.equals(getItemName(), orders.getItemName());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getMemberId(), getItemName(), getItemPrice(), getDiscountPrice());
+        return Objects.hash(getId(), getMemberId(), getItemName(), getItemPrice(), getDiscountPrice(), getTotalPrice());
     }
 }

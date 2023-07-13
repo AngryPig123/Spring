@@ -1,12 +1,19 @@
 package hello.spring.spring.basic.order;
 
 import hello.spring.spring.basic.policy.DiscountPolicy;
-import hello.spring.spring.basic.policy.DiscountPolicyImpl;
 
 public class OrderServiceImpl implements OrdersService {
 
-    private final OrdersRepository ordersRepository = new OrdersRepositoryImpl();
-    private final DiscountPolicy discountPolicy = new DiscountPolicyImpl();
+    private final OrdersRepository ordersRepository;
+    private final DiscountPolicy discountPolicy;
+
+    public OrderServiceImpl(
+            OrdersRepository ordersRepository,
+            DiscountPolicy discountPolicy
+    ) {
+        this.ordersRepository = ordersRepository;
+        this.discountPolicy = discountPolicy;
+    }
 
     @Override
     public void join(Orders orders) {
