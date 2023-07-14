@@ -8,4 +8,7 @@ public interface OrdersService {
 
     void deleteOrders(Long ordersId);
 
+    OrdersRepository getOrdersRepository();
+
+
 }

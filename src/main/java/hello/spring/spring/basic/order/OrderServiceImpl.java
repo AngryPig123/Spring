@@ -15,6 +15,10 @@ public class OrderServiceImpl implements OrdersService {
         this.discountPolicy = discountPolicy;
     }
 
+    public OrdersRepository getOrdersRepository() {
+        return ordersRepository;
+    }
+
     @Override
     public void join(Orders orders) {
         int discount = discountPolicy.discount(orders);
