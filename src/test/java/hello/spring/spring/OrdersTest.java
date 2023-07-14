@@ -8,6 +8,8 @@ import hello.spring.spring.basic.order.Orders;
 import hello.spring.spring.basic.order.OrdersService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.*;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.util.Random;
 
@@ -27,9 +29,9 @@ public class OrdersTest {
     @BeforeEach
     void before() {
 
-        AppConfig appConfig = new AppConfig();
-        memberService = appConfig.memberService();
-        ordersService = appConfig.ordersService();
+        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppConfig.class);
+        memberService = applicationContext.getBean("memberService", MemberService.class);
+        ordersService = applicationContext.getBean("ordersService", OrdersService.class);
 
         int randomMember = new Random().nextInt(5);
         member = initMemberInfo.get(randomMember);

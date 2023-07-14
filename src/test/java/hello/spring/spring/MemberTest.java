@@ -5,6 +5,8 @@ import hello.spring.spring.basic.member.Member;
 import hello.spring.spring.basic.member.MemberService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.*;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.util.Random;
 
@@ -14,14 +16,19 @@ import static hello.spring.spring.basic.DefaultSetting.initMemberInfo;
 @TestMethodOrder(MethodOrderer.Random.class)
 public class MemberTest {
 
+    private ApplicationContext applicationContext;
+
+
     private MemberService memberService;
 
     private Member member;
 
     @BeforeEach
     void before() {
-        AppConfig appConfig = new AppConfig();
-        memberService = appConfig.memberService();
+
+        applicationContext = new AnnotationConfigApplicationContext(AppConfig.class);
+        memberService = applicationContext.getBean("memberService", MemberService.class);
+
         int randomMember = new Random().nextInt(5);
         member = initMemberInfo.get(randomMember);
     }
