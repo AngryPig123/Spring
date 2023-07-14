@@ -10,7 +10,9 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 import java.util.Random;
 
+import static hello.spring.spring.basic.CommonUtil.getFormat;
 import static hello.spring.spring.basic.DefaultSetting.initMemberInfo;
+import static hello.spring.spring.basic.TextColor.BLUE;
 
 @Slf4j
 @TestMethodOrder(MethodOrderer.Random.class)
@@ -42,7 +44,7 @@ public class MemberTest {
     void 회원_저장() {
         memberService.join(member);
         Member findMember = memberService.findMember(member.getId());
-        log.info("\nmember = {}\nfindMember = {}\n\n", member, findMember);
+        log.info(getFormat(BLUE, "\nmember = {}\nfindMember = {}\n\n"), member, findMember);
         Assertions.assertEquals(member, findMember);
     }
 

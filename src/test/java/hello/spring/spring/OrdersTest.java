@@ -13,7 +13,9 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 import java.util.Random;
 
+import static hello.spring.spring.basic.CommonUtil.getFormat;
 import static hello.spring.spring.basic.DefaultSetting.*;
+import static hello.spring.spring.basic.TextColor.BLUE;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 @Slf4j
@@ -54,7 +56,7 @@ public class OrdersTest {
         assumeTrue(member.getGrade() == Grade.VIP);
         ordersService.join(orders);
         Orders findOrders = ordersService.findOrders(orders.getId());
-        log.info("\nfindOrders = {}\nfindMember = {}\n\n", findOrders, member);
+        log.info(getFormat(BLUE,"\nfindOrders = {}\nfindMember = {}\n\n"), findOrders, member);
         Assertions.assertEquals(orders, findOrders);
 
         int discount = (int) (orders.getItemPrice() * 0.1D);
@@ -67,7 +69,7 @@ public class OrdersTest {
         assumeTrue(member.getGrade() == Grade.BASIC);
         ordersService.join(orders);
         Orders findOrders = ordersService.findOrders(orders.getId());
-        log.info("\nfindOrders = {}\nfindMember = {}\n\n", findOrders, member);
+        log.info(getFormat(BLUE,"\nfindOrders = {}\nfindMember = {}\n\n"), findOrders, member);
         Assertions.assertEquals(orders, findOrders);
         Assertions.assertEquals(orders.getDiscountPrice(), 0);
     }
