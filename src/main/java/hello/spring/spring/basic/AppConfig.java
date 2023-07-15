@@ -13,7 +13,7 @@ import hello.spring.spring.basic.policy.RateDiscountPolicyImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-@Configuration  //  Application 의 설정 정보.
+//@Configuration  //  Application 의 설정 정보.
 public class AppConfig {
 
     @Bean
@@ -33,7 +33,7 @@ public class AppConfig {
 
     @Bean
     public DiscountPolicy discountPolicy() {
-        return new RateDiscountPolicyImpl();
+        return new RateDiscountPolicyImpl(memberService());
 //        return new FixDiscountPolicyImpl();
     }
 

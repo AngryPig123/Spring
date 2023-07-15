@@ -1,15 +1,20 @@
 package hello.spring.spring.basic.order;
 
 import hello.spring.spring.basic.policy.DiscountPolicy;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 
+@Service
 public class OrderServiceImpl implements OrdersService {
 
     private final OrdersRepository ordersRepository;
     private final DiscountPolicy discountPolicy;
 
+    @Autowired
     public OrderServiceImpl(
             OrdersRepository ordersRepository,
-            DiscountPolicy discountPolicy
+            @Qualifier("rateDiscountPolicy") DiscountPolicy discountPolicy
     ) {
         this.ordersRepository = ordersRepository;
         this.discountPolicy = discountPolicy;

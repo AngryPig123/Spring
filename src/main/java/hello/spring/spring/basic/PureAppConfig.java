@@ -36,8 +36,8 @@ public class PureAppConfig {
 
 
     public DiscountPolicy discountPolicy() {
-        return new RateDiscountPolicyImpl();
-//        return new FixDiscountPolicyImpl();
+        return new RateDiscountPolicyImpl(memberService());
+//        return new FixDiscountPolicyImpl(memberService);
     }
 
 

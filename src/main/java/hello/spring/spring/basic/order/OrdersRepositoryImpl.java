@@ -1,8 +1,11 @@
 package hello.spring.spring.basic.order;
 
+import org.springframework.stereotype.Repository;
+
 import java.util.HashMap;
 import java.util.Map;
 
+@Repository
 public class OrdersRepositoryImpl implements OrdersRepository {
 
     private final Map<Long, Orders> store = new HashMap<>();

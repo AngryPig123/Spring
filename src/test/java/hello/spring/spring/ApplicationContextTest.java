@@ -175,12 +175,12 @@ public class ApplicationContextTest {
 
         @Bean("rateDiscount")
         public DiscountPolicy rateDiscount() {
-            return new RateDiscountPolicyImpl();
+            return new RateDiscountPolicyImpl(memberService());
         }
 
         @Bean("fixDiscount")
         public DiscountPolicy fixDiscount() {
-            return new FixDiscountPolicyImpl();
+            return new FixDiscountPolicyImpl(memberService());
         }
 
         @Bean
