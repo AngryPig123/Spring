@@ -9,7 +9,10 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.Map;
 import java.util.Random;
 
@@ -18,6 +21,7 @@ import static hello.spring.spring.basic.DefaultSetting.*;
 import static hello.spring.spring.basic.TextColor.BLUE;
 
 @Slf4j
+@Transactional
 class AutoAppConfigTest {
 
     private static AnnotationConfigApplicationContext applicationContext;
