@@ -11,8 +11,6 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.util.Map;
 import java.util.Random;
 
@@ -62,13 +60,15 @@ class AutoAppConfigTest {
         MemberService memberService = applicationContext.getBean("memberServiceImpl", MemberService.class);
         OrdersService ordersService = applicationContext.getBean("orderServiceImpl", OrdersService.class);
 
+        Random random = new Random();
+
         //  랜덤 멤버 셋팅.
-        int randomMember = new Random().nextInt(5);
+        int randomMember = random.nextInt(5);
         Member member = initMemberInfo.get(randomMember);
         memberService.join(member);
 
         //  랜덤 주문 셋팅
-        int randomOrder = new Random().nextInt(5);
+        int randomOrder = random.nextInt(5);
         String menuName = menuNameList.get(randomOrder);
         Integer price = menuInfoMap.get(menuName);
         Orders orders = new Orders(member.getId(), menuName, price);
