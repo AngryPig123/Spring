@@ -2,6 +2,9 @@ package hello.spring.spring.basic.lifecycle;
 
 import lombok.extern.slf4j.Slf4j;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+
 @Slf4j
 public class NetworkClient{
 
@@ -26,14 +29,14 @@ public class NetworkClient{
         log.info("disconnect = {}", url);
     }
 
-
+    @PostConstruct
     public void init() throws Exception {
         log.info("생성자 호출, url = {}", url);
         connect();
         call("초기화 연결 메세지");
     }
 
-
+    @PreDestroy
     public void close() throws Exception {
         disconnect();
     }
