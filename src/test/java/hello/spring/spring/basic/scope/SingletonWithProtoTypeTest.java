@@ -5,6 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Scope;
 
@@ -47,7 +49,7 @@ public class SingletonWithProtoTypeTest {
 
         ClientBean clientBean2 = clientContext.getBean(ClientBean.class);
         clientBean2.logic();
-        Assertions.assertEquals(clientBean2.getCount(), 2);
+        Assertions.assertEquals(clientBean2.getCount(), 1);
 
     }
 
@@ -77,16 +79,22 @@ public class SingletonWithProtoTypeTest {
     }
 
     @Scope("singleton")
-    @RequiredArgsConstructor
     public static class ClientBean {
 
-        private final PrototypeTest prototypeTest;
+        @Autowired
+        ApplicationContext applicationContext;
+
+        private PrototypeTest prototypeTest = null;
 
         public void logic() {
+            prototypeTest = applicationContext.getBean(PrototypeTest.class);
             prototypeTest.addCount();
         }
 
         public int getCount() {
+            if (prototypeTest == null) {
+                return 0;
+            }
             return prototypeTest.getCount();
         }
 
