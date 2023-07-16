@@ -4,13 +4,19 @@ import hello.spring.spring.basic.member.Member;
 import hello.spring.spring.basic.member.MemberService;
 import hello.spring.spring.basic.order.Orders;
 import hello.spring.spring.basic.order.OrdersService;
+import hello.spring.spring.basic.policy.DiscountPolicy;
+import hello.spring.spring.basic.policy.FixDiscountPolicyImpl;
+import hello.spring.spring.basic.policy.RateDiscountPolicyImpl;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -81,6 +87,48 @@ class AutoAppConfigTest {
 
         log.info(getFormat(BLUE, "\nfind member = {}\n"), findMember);
         log.info(getFormat(BLUE, "\nfind order = {}\n"), findOrder);
+
+    }
+
+    private static ApplicationContext discountTest;
+
+    @Test
+    void test() {
+
+        discountTest =
+                new AnnotationConfigApplicationContext(
+                        AutoAppConfig.class,
+                        DiscountService.class
+                );
+
+        DiscountService discountService = discountTest.getBean(DiscountService.class);
+
+
+        DiscountPolicy fixDiscountPolicy = discountService.discount("fixDiscountPolicy");
+        DiscountPolicy beanFindFixDiscountPolicy = discountTest.getBean(FixDiscountPolicyImpl.class);
+        Assertions.assertEquals(fixDiscountPolicy, beanFindFixDiscountPolicy);
+
+        DiscountPolicy rateDiscountPolicy = discountService.discount("rateDiscountPolicy");
+        DiscountPolicy beanFindRateDiscountPolicy = discountTest.getBean(RateDiscountPolicyImpl.class);
+        Assertions.assertEquals(rateDiscountPolicy, beanFindRateDiscountPolicy);
+
+    }
+
+    public static class DiscountService {
+
+        private final Map<String, DiscountPolicy> policyMap;
+        private final List<DiscountPolicy> policies;
+
+        public DiscountService(Map<String, DiscountPolicy> policyMap, List<DiscountPolicy> policies) {
+            this.policyMap = policyMap;
+            this.policies = policies;
+            System.out.println(policyMap);
+            System.out.println(policies);
+        }
+
+        public DiscountPolicy discount(String discountPolicy) {
+            return policyMap.get(discountPolicy);
+        }
 
     }
 

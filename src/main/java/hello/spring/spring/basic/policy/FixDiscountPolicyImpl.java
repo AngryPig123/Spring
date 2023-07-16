@@ -21,6 +21,7 @@ public class FixDiscountPolicyImpl implements DiscountPolicy {
 
     @Override
     public int discount(Orders orders) {
+
         Long memberId = orders.getMemberId();
         Member member = memberService.findMember(memberId);
 
@@ -30,4 +31,5 @@ public class FixDiscountPolicyImpl implements DiscountPolicy {
 
         return 0;
     }
+
 }

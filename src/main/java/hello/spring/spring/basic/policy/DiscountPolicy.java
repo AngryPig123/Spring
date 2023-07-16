@@ -6,4 +6,5 @@ public interface DiscountPolicy {
 
     int discount(Orders orders);
 
+
 }
