@@ -4,8 +4,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Scope;
 
@@ -81,10 +81,10 @@ public class SingletonWithProtoTypeTest {
     public static class ClientBean {
 
         @Autowired
-        ApplicationContext applicationContext;
+        ObjectProvider<PrototypeTest> prototypeTestObjectProvider;
 
         public int logic() {
-            PrototypeTest prototypeTest = applicationContext.getBean(PrototypeTest.class);
+            PrototypeTest prototypeTest = prototypeTestObjectProvider.getObject();
             prototypeTest.addCount();
             return prototypeTest.getCount();
         }
