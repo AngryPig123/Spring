@@ -1,6 +1,5 @@
 package hello.spring.spring.basic.scope;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -44,12 +43,12 @@ public class SingletonWithProtoTypeTest {
     void 싱글톤_클라이언트_프로토_타입_주입_테스트() {
 
         ClientBean clientBean1 = clientContext.getBean(ClientBean.class);
-        clientBean1.logic();
-        Assertions.assertEquals(clientBean1.getCount(), 1);
+        int count1 = clientBean1.logic();
+        Assertions.assertEquals(count1, 1, "client bean [1]");
 
         ClientBean clientBean2 = clientContext.getBean(ClientBean.class);
-        clientBean2.logic();
-        Assertions.assertEquals(clientBean2.getCount(), 1);
+        int count2 = clientBean2.logic();
+        Assertions.assertEquals(count2, 1, "client bean [2]");
 
     }
 
@@ -84,17 +83,9 @@ public class SingletonWithProtoTypeTest {
         @Autowired
         ApplicationContext applicationContext;
 
-        private PrototypeTest prototypeTest = null;
-
-        public void logic() {
-            prototypeTest = applicationContext.getBean(PrototypeTest.class);
+        public int logic() {
+            PrototypeTest prototypeTest = applicationContext.getBean(PrototypeTest.class);
             prototypeTest.addCount();
-        }
-
-        public int getCount() {
-            if (prototypeTest == null) {
-                return 0;
-            }
             return prototypeTest.getCount();
         }
 
